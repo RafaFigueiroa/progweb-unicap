@@ -10,34 +10,54 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="content">
+    <header>
         <h1>Lista de Compras</h1>
-        <form>
-            <label for="inputNomeItem">Produto:</label> <br>
-            <input id="inputNomeItem" type="text"> <br>
-        
-            <label for="inputQtd">Quantidade:</label> <br>
-            <input id="inputQtd" type="text"> <br>
-        
-            <label for="inputPreco">Preço:</label> <br>
-            <input id="inputPreco" type="text"> <br> <br>
-        
-            <button id="btAdicionar" type="button">Adicionar</button>
-            <button id="btLimpar" type="button">Limpar</button>
-        </form>
-    </div>
+    </header>
+    <main>
+        <aside class="add-item">
+            <div class="container">
+                <div class="propriedade">
+                    <label for="input-produto">Produto:</label> <br>
+                    <input id="input-produto" type="text">
+                </div>
+                
+                <div class="propriedade">
+                    <label for="input-qtd">Quantidade:</label> <br>
+                    <input id="input-qtd" type="text">
+                    <select id="tipo-qtd">
+                        <option value="Unid.">Unidade(s)</option>
+                        <option value="Kg">Quilos</option>
+                    </select>
+                </div>
+                
+                <div class="propriedade">
+                    <label for="input-preco">Preço: (kg/unid)</label> <br>
+                    <input id="input-preco" type="text">
+                </div>
+                
+                <div class="buttons">
+                    <button id="bt-adicionar">Adicionar</button>
+                    <button id="bt-limpar">Limpar</button>
+                </div>
+            </div>
+        </aside>
 
-    <hr>
+        <section>
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th id="th-produto">PRODUTO</th>
+                        <th>QUANTIDADE</th>
+                        <th>PREÇO</th>
+                        <th>VALOR</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- linhas virão aqui -->
+                </tbody>
+            </table>
+        </section>
+    </main>
 
-    <table id="tabela">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-            </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-    </table>
 </body>
 </html>
