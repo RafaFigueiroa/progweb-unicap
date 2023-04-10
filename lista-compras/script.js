@@ -18,7 +18,6 @@ const redesenharTabela = (tabela, listaItens) =>{
     //pega os elementos <tr> (linhas da tabela)
     const linhas = document.getElementsByTagName("tr");
 
-    
     for(let i = listaItens.length - 1; i > 0; i--){
         tabela.removeChild(linhas[i]); 
     }
@@ -88,13 +87,8 @@ const handleBtAdicionarClick = () =>{
 
 // limpa a tabela
 const handleBtLimparClick = () =>{
-    //pega os elementos <tr> (linhas da tabela)
-    const linhas = document.getElementsByTagName("tr");
-
-    
-    for(let i = listaItens.length; i >= 0; i--){
-        tabela.removeChild(linhas[i]); 
-    }
+    listaItens = []
+    tabela.innerHTML = "";
 
     inputNomeItem.value = "";
     inputQtd.value = "";
