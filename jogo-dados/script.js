@@ -1,26 +1,39 @@
 const dado1 = document.getElementById("dado1");
 const dado2 = document.getElementById("dado2");
-
 const btDado1 = document.getElementById("btDado1");
 const btDado2 = document.getElementById("btDado2");
-
 const btReiniciar = document.getElementById("btReiniciar");
-
 const rodada = document.getElementById("rodada");
-var numeroRodada = 0;
-
 const vencedorRodada =  document.getElementById("vencedorRodada");
-var somaDado1 = 0;
-var somaDado2 = 0;
-
 const vencedor = document.getElementById("vencedor");
+
+var numeroRodada = localStorage.getItem('rodada');   
+rodada.innerHTML = numeroRodada;
+
+var somaDados1 = Number(localStorage.getItem('somaDados1'));
+var somaDados2 = Number(localStorage.getItem('somaDados2'));
+
+dado1.innerHTML = localStorage.getItem('dado1');
+dado2.innerHTML = localStorage.getItem('dado2');
+
+vencedorRodada.innerHTML = localStorage.getItem('vencedorRodada');
+
+if(localStorage.getItem('vencedor') == null){
+    vencedor.innerHTML = "-"
+}
+else{
+    vencedor.innerHTML = localStorage.getItem('vencedor');
+    btDado1.disabled = true;
+}
 
 function fimDeJogo(somaDado1, somaDado2){
     if(somaDado1 > somaDado2){
-        vencedor.innerHTML = "O vencedor do jogo foi o dado 1!!";
+        localStorage.setItem('vencedor', "O vencedor do jogo foi o dado 1!!")
+        vencedor.innerHTML = localStorage.getItem('vencedor');
     }
     else if(somaDado2 > somaDado1){
-        vencedor.innerHTML = "O vencedor do jogo foi o dado 2!!";
+        localStorage.setItem('vencedor', "O vencedor do jogo foi o dado 2!!")
+        vencedor.innerHTML = localStorage.getItem('vencedor');
     }
     else{
         vencedor.innerHTML = "O jogo foi EMPATE!"
@@ -32,34 +45,35 @@ function fimDeJogo(somaDado1, somaDado2){
 
 function rodadas(valorDado1, valorDado2){
     numeroRodada++;
+    localStorage.setItem('rodada', numeroRodada);
     rodada.innerHTML = numeroRodada;
+    console.log(numeroRodada);
     
     // identifica o vencedor da rodada
     if(valorDado1 > valorDado2){
-        vencedorRodada.innerHTML = `O vencedor da rodada ${numeroRodada} é o dado 1`
+        localStorage.setItem('vencedorRodada', `O vencedor da rodada ${numeroRodada} foi o dado 1`)
+        vencedorRodada.innerHTML = localStorage.getItem('vencedorRodada');
     }
     else if(valorDado2 > valorDado1){
-        vencedorRodada.innerHTML = `O vencedor da rodada ${numeroRodada} é o dado 2`
+        localStorage.setItem('vencedorRodada', `O vencedor da rodada ${numeroRodada} foi o dado 2`)
+        vencedorRodada.innerHTML = localStorage.getItem('vencedorRodada');
     }
     else{
         vencedorRodada.innerHTML = `A rodada ${numeroRodada} foi empate!`
     }
 
-    // guarda os valores dos dados de cada rodada
-    if(numeroRodada < 10){
-        somaDado1 += valorDado1;
-        somaDado2 += valorDado2;
-    }
-    // encerra
-    else if(numeroRodada => 10){
-        fimDeJogo(somaDado1, somaDado2);
+    //encerra o jogo
+    if(numeroRodada == 10){
+        fimDeJogo(somaDados1, somaDados2);
     }
 };
-
 
 var valorDado1;
 const handleBtDado1Click = () => {
     valorDado1 = Math.floor(Math.random() * 6) + 1;
+    
+    localStorage.setItem('dado1', valorDado1);
+    localStorage.setItem('somaDados1', somaDados1+=valorDado1);
 
     dado1.innerHTML = valorDado1;
   
@@ -70,6 +84,9 @@ const handleBtDado1Click = () => {
 const handleBtDado2Click = () => {
     const valorDado2 = Math.floor(Math.random() * 6) + 1;
   
+    localStorage.setItem('dado2', valorDado2);
+    localStorage.setItem('somaDados2', somaDados2+=valorDado2);
+
     dado2.innerHTML = valorDado2;
   
     btDado1.disabled = false;
@@ -79,15 +96,16 @@ const handleBtDado2Click = () => {
 };
 
 const handleBtReiniciarClick = () => {  
-    somaDado1 = 0;
-    somaDado2 = 0;
+    localStorage.clear();
 
-    vencedorRodada.innerHTML = "";
+    somaDados1 = 0;
+    somaDados2 = 0;
 
     numeroRodada = 0;
     rodada.innerHTML = numeroRodada;
 
-    vencedor.innerHTML = "";
+    vencedorRodada.innerHTML = "-";
+    vencedor.innerHTML = "-";
 
     dado1.innerHTML = "-";
     dado2.innerHTML = "-";
